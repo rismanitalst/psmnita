@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1038805052496",
+    "project_id": "nitadompetdgtl",
+    "storage_bucket": "nitadompetdgtl.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1038805052496:android:df11ad4284e80e85293555",
+        "android_client_info": {
+          "package_name": "com.example.psmnita.pasar_malam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1038805052496-kl487pjm76uv6f07pqonda92cem6q4rr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB01Tm-VMFKdwOfNTsbnHAMo7DZssA7qwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1038805052496-kl487pjm76uv6f07pqonda92cem6q4rr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

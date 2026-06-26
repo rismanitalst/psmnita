@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:pasar_malam/core/providers/theme_provider.dart';
 import 'package:pasar_malam/core/routes/app_router.dart';
@@ -5,6 +6,7 @@ import 'package:pasar_malam/core/services/biometric_lock_provider.dart';
 import 'package:pasar_malam/core/services/global_institute_pay_service.dart';
 import 'package:pasar_malam/core/services/notification_service.dart';
 import 'package:pasar_malam/core/theme/app_theme.dart';
+import 'package:pasar_malam/firebase_options.dart';
 import 'package:pasar_malam/core/widgets/biometric_lock_screen.dart';
 import 'package:pasar_malam/features/auth/presentation/providers/auth_provider.dart';
 import 'package:pasar_malam/features/cart/presentation/providers/cart_provider.dart';
@@ -16,6 +18,7 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await NotificationService.initialize();
   await GlobalInstitutePayService().init();
 
