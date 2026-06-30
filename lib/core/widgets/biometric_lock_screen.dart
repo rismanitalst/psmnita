@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_biometric_kit/flutter_biometric_kit.dart';
 import 'package:provider/provider.dart';
 
 import '../services/biometric_lock_provider.dart';
