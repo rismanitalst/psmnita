@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pasar_malam/core/constants/app_colors.dart';
 import 'package:pasar_malam/core/routes/app_router.dart';
 import 'package:pasar_malam/features/cart/data/models/cart_model.dart';
 import 'package:pasar_malam/features/cart/presentation/providers/cart_provider.dart';
@@ -46,7 +47,7 @@ class _CartPageState extends State<CartPage> {
             child: const Text('Batal'),
           ),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            style: ElevatedButton.styleFrom(backgroundColor: AppColors.error),
             onPressed: () => Navigator.pop(ctx, true),
             child: const Text('Hapus Semua'),
           ),
@@ -90,7 +91,7 @@ class _CartPageState extends State<CartPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.error_outline, size: 48, color: Colors.red),
+                  const Icon(Icons.error_outline, size: 48, color: AppColors.error),
                   const SizedBox(height: 12),
                   Text(cartProv.error ?? 'Terjadi kesalahan'),
                   const SizedBox(height: 16),
@@ -164,7 +165,7 @@ class _EmptyCartView extends StatelessWidget {
           Icon(
             Icons.shopping_cart_outlined,
             size: 80,
-            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3),
+            color: AppColors.accentDeep,
           ),
           const SizedBox(height: 16),
           Text(
@@ -188,6 +189,13 @@ class _EmptyCartView extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.ctaPrimary,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
             icon: const Icon(Icons.shopping_bag_outlined),
             label: const Text('Mulai Belanja'),
             onPressed: () => Navigator.pop(context),
@@ -218,12 +226,15 @@ class _CartItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final surface = Theme.of(context).colorScheme.surface;
     final onSurface = Theme.of(context).colorScheme.onSurface;
-    final primary = Theme.of(context).colorScheme.primary;
 
     return Container(
       decoration: BoxDecoration(
         color: surface,
         borderRadius: BorderRadius.circular(16),
+        // aksen border kiri, biar card gak flat kayak list generic
+        border: const Border(
+          left: BorderSide(color: AppColors.cardAccentBorder, width: 3),
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.06),
@@ -263,14 +274,24 @@ class _CartItemCard extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              item.product.category,
-                              style: TextStyle(
-                                fontSize: 11,
-                                color: onSurface.withValues(alpha: 0.5),
+                            // Brand jadi chip kecil, bukan teks abu-abu polos
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                              decoration: BoxDecoration(
+                                color: AppColors.chipBackground,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Text(
+                                item.product.category.toUpperCase(),
+                                style: const TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.chipText,
+                                  letterSpacing: 0.3,
+                                ),
                               ),
                             ),
-                            const SizedBox(height: 2),
+                            const SizedBox(height: 4),
                             Text(
                               item.product.name,
                               style: TextStyle(
@@ -284,15 +305,21 @@ class _CartItemCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.delete_outline,
-                          size: 20,
-                          color: onSurface.withValues(alpha: 0.4),
+                      // Tombol hapus, soft-red circle biar gak polos abu
+                      GestureDetector(
+                        onTap: onRemove,
+                        child: Container(
+                          padding: const EdgeInsets.all(6),
+                          decoration: const BoxDecoration(
+                            color: AppColors.deleteIconBackground,
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Icons.delete_outline,
+                            size: 16,
+                            color: AppColors.error,
+                          ),
                         ),
-                        padding: EdgeInsets.zero,
-                        constraints: const BoxConstraints(),
-                        onPressed: onRemove,
                       ),
                     ],
                   ),
@@ -308,39 +335,38 @@ class _CartItemCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Quantity control
-                      Row(
-                        children: [
-                          _QtyButton(
-                            icon: Icons.remove,
-                            onTap: onDecrease,
-                            primary: primary,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            child: Text(
-                              '${item.quantity}',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: onSurface,
+                      // Quantity control — pill pink, bukan abu-abu polos
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: AppColors.stepperBackground,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Row(
+                          children: [
+                            _QtyButton(icon: Icons.remove, onTap: onDecrease),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 12),
+                              child: Text(
+                                '${item.quantity}',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: onSurface,
+                                ),
                               ),
                             ),
-                          ),
-                          _QtyButton(
-                            icon: Icons.add,
-                            onTap: onIncrease,
-                            primary: primary,
-                          ),
-                        ],
+                            _QtyButton(icon: Icons.add, onTap: onIncrease),
+                          ],
+                        ),
                       ),
                       // Subtotal
                       Text(
                         formatPrice(item.subtotal),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: primary,
+                          color: AppColors.primary,
                         ),
                       ),
                     ],
@@ -369,26 +395,22 @@ class _CartItemCard extends StatelessWidget {
 class _QtyButton extends StatelessWidget {
   final IconData icon;
   final VoidCallback onTap;
-  final Color primary;
 
-  const _QtyButton({
-    required this.icon,
-    required this.onTap,
-    required this.primary,
-  });
+  const _QtyButton({required this.icon, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 28,
-        height: 28,
+        width: 26,
+        height: 26,
         decoration: BoxDecoration(
-          color: primary.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(8),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: AppColors.stepperBorder, width: 1),
         ),
-        child: Icon(icon, size: 16, color: primary),
+        child: Icon(icon, size: 14, color: AppColors.stepperBorder),
       ),
     );
   }
@@ -410,7 +432,6 @@ class _CartBottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final surface = Theme.of(context).colorScheme.surface;
     final onSurface = Theme.of(context).colorScheme.onSurface;
-    final primary = Theme.of(context).colorScheme.primary;
 
     return Container(
       decoration: BoxDecoration(
@@ -440,31 +461,52 @@ class _CartBottomBar extends StatelessWidget {
                       color: onSurface.withValues(alpha: 0.5),
                     ),
                   ),
+                  const SizedBox(height: 2),
                   Text(
                     formatPrice(total),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: primary,
+                      color: AppColors.primary,
                     ),
                   ),
                 ],
               ),
               const SizedBox(width: 16),
               Expanded(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: primary,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                child: Container(
+                  height: 48,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    gradient: const LinearGradient(
+                      colors: [AppColors.ctaPrimary, AppColors.ctaGradientEnd],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
                     ),
                   ),
-                  onPressed: onCheckout,
-                  child: const Text(
-                    'Checkout',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: onCheckout,
+                      child: const Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Checkout',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(width: 6),
+                            Icon(Icons.arrow_forward_rounded, size: 18, color: Colors.white),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
