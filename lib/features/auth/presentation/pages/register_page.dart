@@ -74,7 +74,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 children: [
                   const SizedBox(height: 32),
                   const AuthHeader(
-                    icon: Icons.person_add_alt_1,
+                    imageAsset: 'assets/images/asa_tumbler.png',
                     title: 'Buat Akun Baru',
                     subtitle: 'Lengkapi data diri Anda untuk mendaftar',
                   ),

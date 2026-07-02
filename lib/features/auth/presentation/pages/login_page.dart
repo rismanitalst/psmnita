@@ -1,6 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide AuthProvider;
 import 'package:flutter/material.dart';
+import 'package:pasar_malam/core/constants/app_colors.dart';
 import 'package:pasar_malam/core/routes/app_router.dart';
 import 'package:pasar_malam/features/auth/presentation/providers/auth_provider.dart';
 import 'package:pasar_malam/features/auth/presentation/widgets/auth_header.dart';
@@ -63,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(auth.errorMessage ?? 'Login gagal'),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.error,
         ),
       );
     }
@@ -87,6 +88,10 @@ class _LoginPageState extends State<LoginPage> {
             child: const Text('Batal'),
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+              foregroundColor: Colors.white,
+            ),
             onPressed: () async {
               await FirebaseAuth.instance.sendPasswordResetEmail(
                 email: ctrl.text.trim(),
@@ -117,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   const SizedBox(height: 32),
                   const AuthHeader(
-                    icon: Icons.lock_open_outlined,
+                    imageAsset: 'assets/images/asa_tumbler.png',
                     title: 'Selamat Datang',
                     subtitle: 'Masuk ke akun Anda untuk melanjutkan',
                   ),
@@ -127,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                     hint: 'contoh@email.com',
                     controller: _emailCtrl,
                     keyboardType: TextInputType.emailAddress,
-                    prefixIcon: const Icon(Icons.email_outlined),
+                    prefixIcon: const Icon(Icons.email_outlined, color: AppColors.accentDeep),
                     validator: (v) {
                       if (v?.isEmpty ?? true) return 'Email wajib diisi';
                       if (!EmailValidator.validate(v!)) {
@@ -142,10 +147,11 @@ class _LoginPageState extends State<LoginPage> {
                     hint: 'Masukkan password',
                     controller: _passCtrl,
                     obscureText: !_showPass,
-                    prefixIcon: const Icon(Icons.lock_outline),
+                    prefixIcon: const Icon(Icons.lock_outline, color: AppColors.accentDeep),
                     suffixIcon: IconButton(
                       icon: Icon(
                         _showPass ? Icons.visibility_off : Icons.visibility,
+                        color: AppColors.accentDeep,
                       ),
                       onPressed: () =>
                           setState(() => _showPass = !_showPass),
@@ -157,6 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
+                      style: TextButton.styleFrom(foregroundColor: AppColors.primary),
                       onPressed: () => _showForgotPasswordDialog(context),
                       child: const Text('Lupa Password?'),
                     ),
@@ -187,7 +194,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: const Text(
                           'Daftar',
                           style: TextStyle(
-                            color: Color(0xFF1565C0),
+                            color: AppColors.primary,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
