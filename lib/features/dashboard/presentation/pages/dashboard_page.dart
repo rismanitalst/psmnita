@@ -22,14 +22,12 @@ class _DashboardPageState extends State<DashboardPage> {
   final _searchCtrl = TextEditingController();
 
   final List<_CategoryItem> _categories = const [
-    _CategoryItem(label: 'All', icon: Icons.apps),
-    _CategoryItem(label: 'Running', icon: Icons.directions_run),
-    _CategoryItem(label: 'Lifestyle', icon: Icons.style),
-    _CategoryItem(label: 'Football', icon: Icons.sports_soccer),
-    _CategoryItem(label: 'Volleyball', icon: Icons.sports_volleyball),
-    _CategoryItem(label: 'Tennis', icon: Icons.sports_tennis),
-    _CategoryItem(label: 'Badminton', icon: Icons.sports),
-  ];
+  _CategoryItem(label: 'All', icon: Icons.apps_rounded),
+  _CategoryItem(label: 'Hydro Flask', icon: Icons.water_drop_rounded),
+  _CategoryItem(label: 'Stanley', icon: Icons.local_cafe_rounded),
+  _CategoryItem(label: 'Chako Lab', icon: Icons.science_rounded),
+  _CategoryItem(label: 'Lainnya', icon: Icons.grid_view_rounded),
+];
 
   @override
   void initState() {
