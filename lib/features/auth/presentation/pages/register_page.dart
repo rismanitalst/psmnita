@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:pasar_malam/core/constants/app_colors.dart';
 import 'package:pasar_malam/core/routes/app_router.dart';
 import 'package:pasar_malam/features/auth/presentation/providers/auth_provider.dart';
 import 'package:pasar_malam/features/auth/presentation/widgets/auth_header.dart';
@@ -50,7 +51,7 @@ class _RegisterPageState extends State<RegisterPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(auth.errorMessage ?? 'Pendaftaran gagal'),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.error,
         ),
       );
     }
@@ -82,7 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     label: 'Nama Lengkap',
                     hint: 'Masukkan nama lengkap',
                     controller: _nameCtrl,
-                    prefixIcon: const Icon(Icons.person_outline),
+                    prefixIcon: const Icon(Icons.person_outline, color: AppColors.accentDeep),
                     validator: (v) =>
                         (v?.isEmpty ?? true) ? 'Nama wajib diisi' : null,
                   ),
@@ -92,7 +93,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     hint: 'contoh@email.com',
                     controller: _emailCtrl,
                     keyboardType: TextInputType.emailAddress,
-                    prefixIcon: const Icon(Icons.email_outlined),
+                    prefixIcon: const Icon(Icons.email_outlined, color: AppColors.accentDeep),
                     validator: (v) {
                       if (v?.isEmpty ?? true) return 'Email wajib diisi';
                       if (!EmailValidator.validate(v!)) {
@@ -107,10 +108,11 @@ class _RegisterPageState extends State<RegisterPage> {
                     hint: 'Minimal 8 karakter',
                     controller: _passCtrl,
                     obscureText: !_showPass,
-                    prefixIcon: const Icon(Icons.lock_outline),
+                    prefixIcon: const Icon(Icons.lock_outline, color: AppColors.accentDeep),
                     suffixIcon: IconButton(
                       icon: Icon(
                         _showPass ? Icons.visibility_off : Icons.visibility,
+                        color: AppColors.accentDeep,
                       ),
                       onPressed: () =>
                           setState(() => _showPass = !_showPass),
@@ -125,7 +127,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     hint: 'Ulangi password',
                     controller: _pass2Ctrl,
                     obscureText: !_showPass,
-                    prefixIcon: const Icon(Icons.lock_outline),
+                    prefixIcon: const Icon(Icons.lock_outline, color: AppColors.accentDeep),
                     validator: (v) =>
                         v != _passCtrl.text ? 'Password tidak cocok' : null,
                   ),
@@ -148,7 +150,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         child: const Text(
                           'Masuk',
                           style: TextStyle(
-                            color: Color(0xFF1565C0),
+                            color: AppColors.primary,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

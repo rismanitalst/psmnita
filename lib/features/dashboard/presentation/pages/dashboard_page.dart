@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pasar_malam/core/constants/app_colors.dart';
 import 'package:pasar_malam/core/providers/theme_provider.dart';
 import 'package:pasar_malam/core/routes/app_router.dart';
 import 'package:pasar_malam/features/auth/presentation/providers/auth_provider.dart';
@@ -116,7 +117,7 @@ class _DashboardPageState extends State<DashboardPage> {
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF1A1A2E),
+                                color: AppColors.primary,
                               ),
                             ),
                             TextButton(
@@ -124,7 +125,7 @@ class _DashboardPageState extends State<DashboardPage> {
                               child: const Text(
                                 'See All',
                                 style: TextStyle(
-                                  color: Color(0xFF1565C0),
+                                  color: AppColors.primary,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -163,7 +164,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF1A1A2E),
+                            color: AppColors.primary,
                           ),
                         ),
                       ),
@@ -313,7 +314,7 @@ class _BannerCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         gradient: const LinearGradient(
-          colors: [Color(0xFF1565C0), Color(0xFF42A5F5)],
+          colors: [AppColors.primary, AppColors.accentDeep],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
@@ -428,7 +429,7 @@ class _CategoryChip extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
           color: selected
-              ? const Color(0xFF1565C0)
+              ? AppColors.primary
               : Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(22),
           boxShadow: [
@@ -558,7 +559,7 @@ class _ProductCardState extends State<_ProductCard> {
                         child: Icon(
                           _isFavorite ? Icons.favorite : Icons.favorite_border,
                           size: 16,
-                          color: _isFavorite ? Colors.red : Colors.grey,
+                          color: _isFavorite ? AppColors.accentDeep : Colors.grey,
                         ),
                       ),
                     ),
@@ -624,7 +625,7 @@ class _ProductCardState extends State<_ProductCard> {
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1565C0),
+                        color: AppColors.primary,
                       ),
                     ),
                   ],
@@ -869,7 +870,7 @@ class _ProductDetailSheetState extends State<_ProductDetailSheet> {
                                     ? '${p.name} ditambahkan ke keranjang'
                                     : 'Gagal menambahkan ke keranjang',
                               ),
-                              backgroundColor: success ? Colors.green : Colors.red,
+                              backgroundColor: success ? Colors.green : AppColors.error,
                               duration: const Duration(seconds: 2),
                             ),
                           );
@@ -1020,7 +1021,7 @@ class _AccountDialog extends StatelessWidget {
           // Avatar
           CircleAvatar(
             radius: 30,
-            backgroundColor: const Color(0xFF1565C0),
+            backgroundColor: AppColors.primary,
             child: Text(
               (auth.firebaseUser?.displayName ?? 'U')[0].toUpperCase(),
               style: const TextStyle(fontSize: 24, color: Colors.white),
